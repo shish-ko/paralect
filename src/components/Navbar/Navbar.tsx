@@ -1,21 +1,28 @@
 import { Tabs, Title } from "@mantine/core";
 import AppLogo from '~assets/logo.svg';
 import styles from './styles.module.scss';
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { appPaths } from "interfaces";
 
 export const Navbar: React.FC = () => {
-  const [tab, setTab] = useState<string | null>('movies');
-
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <nav className={styles.navBar}>
       <Title order={1} className={styles.logo}>
-        <img src={AppLogo}/>
+        <img src={AppLogo} />
         <span>ArrowFlicks</span>
       </Title>
-      <Tabs value={tab} onChange={setTab} orientation="vertical" variant="unstyled" classNames={styles}>
+      <Tabs
+        defaultValue={location.pathname}
+        orientation="vertical"
+        variant="unstyled"
+        classNames={styles}
+        onChange={(value) => value && navigate(value  )}>
         <Tabs.List>
-          <Tabs.Tab value="movies" display={'block'}>Movies</Tabs.Tab>
-          <Tabs.Tab value="rated movies">Rated movies</Tabs.Tab>
+          {
+            Object.keys(appPaths).map(path => <Tabs.Tab value={path} key={path}>{appPaths[path as keyof typeof appPaths]}</Tabs.Tab>)
+          }
         </Tabs.List>
       </Tabs>
     </nav>
