@@ -7,16 +7,9 @@ import { Navbar } from "~comps/Navbar/Navbar";
 
 export const Default_UI: React.FC = () => {
   return (
-    <Container className={styles.app}>
-      <Navbar />
-      
-        <Stack>
-          <Title order={2}>Movies</Title>
-          <Link to={''}>Hello</Link>
-          <Link to={''}>Hello</Link>
-        </Stack>
+    <Container className={styles.app} size={'xl'}>
+      <Navbar />       
       <Outlet />
-
     </Container>
   );
 };

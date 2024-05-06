@@ -1,7 +1,21 @@
-import { createTheme, rem } from "@mantine/core";
+import { Container, createTheme, rem } from "@mantine/core";
 
 export const theme = createTheme({
   fontFamily: 'Inter',
+  black: '#232134',
+  components: {
+    Container: Container.extend({
+      vars: (_, { size, fluid }) => ({
+        root: {
+          '--container-size': fluid
+            ? '100%'
+            : size !== undefined && size in CONTAINER_SIZES
+            ? CONTAINER_SIZES[size]
+            : rem(size),
+        },
+      }),
+    }),
+  },
   headings: {
     sizes: {
       h1: {
@@ -14,7 +28,8 @@ export const theme = createTheme({
         fontWeight: 'bold',
       },
       h3: {
-
+        lineHeight: '1',
+        fontSize: rem(20),
       }
     }
   },
@@ -30,6 +45,27 @@ export const theme = createTheme({
       "#6526bc",
       "#5a21a8",
       "#4d1b95"
+    ],
+    gray: [
+      "#F8F9FA",
+      "#F5F5F6",
+      "#EAEBED",
+      "#D5D6DC",
+      "#ADB5BD",
+      "#ACADB9",
+      "#7B7C88",
+      "#495057",
+      "#343A40",
+      "#212529"
     ]
   }
 });
+
+const CONTAINER_SIZES: Record<string, string> = {
+  xxs: rem(300),
+  xs: rem(400),
+  sm: rem(500),
+  md: rem(600),
+  lg: rem(700),
+  xl: rem(1440),
+};

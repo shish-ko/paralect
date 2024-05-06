@@ -2,17 +2,13 @@
   display: flex;
   padding: 24px;
   gap: 8px;
+}
 
-  .info {
-    display: flex;
-    gap: 16px;
+.titleContainer {
+  flex-grow: 1;
+  align-content: flex-start;
+}
 
-
-    .description {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    
-  }
+.filmInfo {
+  flex-shrink: 1;
 }
