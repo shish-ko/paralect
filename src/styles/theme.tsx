@@ -57,6 +57,18 @@ export const theme = createTheme({
       "#495057",
       "#343A40",
       "#212529"
+    ],
+    yellow: [
+      "#fff9e1",
+      "#fff0cd",
+      "#fde09d",
+      "#fccf67",
+      "#fbc13b",
+      "#fab720",
+      "#fab005",
+      "#df9d00",
+      "#c78b00",
+      "#ac7700"
     ]
   }
 });

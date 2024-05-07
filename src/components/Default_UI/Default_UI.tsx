@@ -1,7 +1,7 @@
-import { Container, Flex, Group, Stack, Title } from "@mantine/core";
+import { Container} from "@mantine/core";
 import styles from './styles.module.scss';
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import '@mantine/core/styles.css';
 import { Navbar } from "~comps/Navbar/Navbar";
 

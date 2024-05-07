@@ -4,13 +4,13 @@ import styles from './styles.module.scss';
 export const FilmList: React.FC =()=> {
   return (
     <div className={styles.filmContainer}>
-      <FilmCard_S />
-      <FilmCard_S />
-      <FilmCard_S />
-      <FilmCard_S />
-      <FilmCard_S />
-      <FilmCard_S />
-      <FilmCard_S />
+      <FilmCard_S isBig/>
+      <FilmCard_S isBig/>
+      <FilmCard_S isBig/>
+      <FilmCard_S isBig/>
+      <FilmCard_S isBig/>
+      <FilmCard_S isBig/>
+      <FilmCard_S isBig/>
     </div>
-  )
-}
+  );
+};
