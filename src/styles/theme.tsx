@@ -1,4 +1,5 @@
-import { Container, createTheme, rem } from "@mantine/core";
+import { Button, Container, Input, createTheme, rem } from "@mantine/core"; 
+import btnStyles from './buttons.module.scss';
 
 export const theme = createTheme({
   fontFamily: 'Inter',
@@ -15,6 +16,25 @@ export const theme = createTheme({
         },
       }),
     }),
+    Button: Button.extend({
+      classNames: btnStyles,
+      vars: (_, { size }) => ({
+        root: {
+          '--button-padding-x': rem(20),
+          '--button-height': size === 'xs' ? rem(32) : rem(40),
+          '--button-radius': rem(8),
+          '--button-fz': rem(14)
+        },
+      })
+    }),
+    Input: Input.extend({
+      vars: (_, { size }) => ({
+        wrapper: {
+          '--input-height': rem(48),
+          '--input-radius': rem(8)
+        },
+      })
+    })
   },
   headings: {
     sizes: {

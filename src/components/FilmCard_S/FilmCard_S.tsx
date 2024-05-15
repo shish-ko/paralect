@@ -1,7 +1,7 @@
 import { Group, Image, Paper, Stack, Text, Title } from "@mantine/core";
 import styles from './styles.module.scss';
 import poster from '~assets/poster.png';
-import { Star } from "~comps/UI_components/Star";
+import { Star } from "~comps/UI_components/Star/Star";
 
 interface IFilmCardProps {
   isBig?: boolean;
