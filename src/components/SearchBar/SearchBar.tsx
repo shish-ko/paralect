@@ -1,6 +1,7 @@
-import { Button, Grid, Group, NativeSelect, Stack, TextInput, Title, rem } from "@mantine/core";
+import { Button, Grid, Group, NativeSelect, Select, Stack, TextInput, Title, rem } from "@mantine/core";
 import SearchIcon from '~assets/search.svg?react';
 import styles from './styles.module.scss';
+import { AppSelect } from "~comps/UI_components/AppSelect/AppSelect";
 
 export const SearchBar: React.FC = () => {
   return (
@@ -20,14 +21,12 @@ export const SearchBar: React.FC = () => {
       <Stack>
         <Grid>
           <Grid.Col span={3}>
-            <NativeSelect
-              label='Genres'
-            >
-              <option value="vue" disabled>Vue</option>
-              <option value="react">React</option>
-              <option value="angular">Angular</option>
-              
-              </NativeSelect>
+            <AppSelect
+              placeholder="Select genres"
+              label='Genres' 
+              data={['React', 'Angular', 'Svelte', 'Vue']}
+              multiple/>
+
           </Grid.Col>
           <Grid.Col span={3}>qweqweqweqweqwe</Grid.Col>
           <Grid.Col span={3}>qweqweqweqweqwe</Grid.Col>

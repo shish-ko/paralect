@@ -1,6 +1,7 @@
-import { Button, Container, Input, createTheme, rem } from "@mantine/core"; 
+import { Button, Container, Input, Pill, createTheme, rem } from "@mantine/core"; 
 import btnStyles from './buttons.module.scss';
 import inputStyles from './input.module.scss';
+import pillStyles from './pill.module.scss';
 
 export const theme = createTheme({
   fontFamily: 'Inter',
@@ -37,6 +38,9 @@ export const theme = createTheme({
         },
       }),
       classNames: inputStyles,
+    }),
+    Pill: Pill.extend({
+      classNames: pillStyles,
     })
   },
   headings: {
