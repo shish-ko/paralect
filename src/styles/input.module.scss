@@ -1,0 +1,8 @@
+.input{
+  border-color: var(--mantine-color-gray-3);
+  
+  &:hover,
+  &:focus {
+    border-color: var(--mantine-color-purple-5);
+  }
+}
