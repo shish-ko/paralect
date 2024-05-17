@@ -1,4 +1,4 @@
-import { Button, Combobox, Grid, Group, NativeSelect, Select, Stack, TextInput, Title, rem } from "@mantine/core";
+import { Button, Grid, Group, NumberInput, Stack, TextInput, Title } from "@mantine/core";
 import SearchIcon from '~assets/search.svg?react';
 import styles from './styles.module.scss';
 import { AppSelect } from "~comps/UI_components/AppSelect/AppSelect";
@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export const SearchBar: React.FC = () => {
   const [genres, setGenres] = useState<string[]>([]);
+  const [releaseYears, setReleaseYears] = useState<string[]>([]);
 
   return (
     <>
@@ -22,22 +23,23 @@ export const SearchBar: React.FC = () => {
         />
       </Group>
       <Stack>
-        <Grid>
-          <Grid.Col span={3}>
-            {/* <AppSelect
-              value={genres}
-              onChange={setGenres}
-              placeholder="Select genres"
-              label='Genres' 
-              data={['React', 'Angular', 'Svelte', 'Vue']}
-              multiple/> */}
-            <AppSelect placeholder="Select genres" data={['React', 'Angular', 'Svelte', 'Vue']} value={genres} setValue={setGenres}/>
+        <Grid align="end">
+          <Grid.Col span={'auto'}>
+            <AppSelect placeholder="Select genres" data={['React', 'Angular', 'Svelte', 'Vue']} value={genres} setValue={setGenres} label='Genres' />
           </Grid.Col>
-          <Grid.Col span={3}>
-            <Combobox></Combobox>
+          <Grid.Col span={'auto'}>
+            <AppSelect placeholder="Select release year" data={['React', 'Angular', 'Svelte', 'Vue']} value={releaseYears} setValue={setReleaseYears} label='Release year' />            
           </Grid.Col>
-          <Grid.Col span={3}>qweqweqweqweqwe</Grid.Col>
-          <Grid.Col span={3}>qweqweqweqweqwe</Grid.Col>
+          <Grid.Col span={'auto'}>
+            <Group justify="space-between" align="flex-end" wrap="nowrap">
+            <NumberInput placeholder="From" label='Ratings' min={0} max={10} w={138} decimalScale={2} step={0.1}/>
+            <NumberInput placeholder="To" min={0} max={10} w={138} decimalScale={2} step={0.1}/>
+
+            </Group>
+          </Grid.Col>
+          <Grid.Col span={'content'}>
+            <Button variant="white">Reset filters</Button>
+          </Grid.Col>
         </Grid>
       </Stack>
 

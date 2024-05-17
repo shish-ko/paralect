@@ -19,7 +19,7 @@ export const theme = createTheme({
       }),
     }),
     Button: Button.extend({
-      classNames: btnStyles,
+      classNames: (_, props)=>(!props.variant ? _.components.button.classNames : btnStyles),
       vars: (_, { size }) => ({
         root: {
           '--button-padding-x': rem(20),

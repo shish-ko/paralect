@@ -1,4 +1,4 @@
-import { Combobox, Group, InputBase, MultiSelect, MultiSelectProps, Text, ThemeIcon, useCombobox, useMantineTheme } from "@mantine/core";
+import { Combobox, Group, Input, InputBase, InputProps, InputWrapperProps, MultiSelect, MultiSelectProps, ScrollArea, Text, ThemeIcon, useCombobox, useMantineTheme } from "@mantine/core";
 import { Dispatch, SetStateAction, useState } from "react";
 import DropIcon from '~assets/dropList.svg?react';
 import styles from './appSelect.module.scss';
@@ -20,13 +20,13 @@ const SelectDropIcon: React.FC<ISelectIconProps> = ({ isActive }) => {
 };
 
 
-interface IAppSelectProps {
+type IAppSelectProps = {
   data: string[],
   value: string[],
   setValue: Dispatch<SetStateAction<string[]>>,
   placeholder?: string
-}
-export const AppSelect: React.FC<IAppSelectProps> = ({ value, data, setValue, placeholder }) => {
+} & InputWrapperProps
+export const AppSelect: React.FC<IAppSelectProps> = ({ value, data, setValue, placeholder, ...inputProps }) => {
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -34,7 +34,7 @@ export const AppSelect: React.FC<IAppSelectProps> = ({ value, data, setValue, pl
   });
 
   const options = data.map((item) => (
-    <Combobox.Option value={item} key={item} active={value.includes(item)} classNames={styles}>
+    <Combobox.Option value={item} key={item} active={value.includes(item)} >
       {item}
     </Combobox.Option>
   ));
@@ -45,33 +45,29 @@ export const AppSelect: React.FC<IAppSelectProps> = ({ value, data, setValue, pl
     );
 
   return (
-    // <MultiSelect
-    //   placeholder={placeholder ? (props.value?.length ? '' : placeholder) : ''}
-    //   withCheckIcon={false}
+    <Input.Wrapper {...inputProps}>
+      <Combobox
+        onOptionSubmit={handleValueSelect}
+        classNames={styles}
 
-    //   {...props}
-    //   classNames={{...props.classNames, pillsList: styles.pillsList}}
-    //   rightSection={<SelectDropIcon isActive={isOpen} />}
-    //   onDropdownOpen={() => setIsOpen(!isOpen)}
-    //   onDropdownClose={() => setIsOpen(!isOpen)}
-    // />
-    <Combobox
-      onOptionSubmit={handleValueSelect}
-      store={combobox}>
-      <Combobox.Target>
-        <InputBase
-          multiline
-          pointer
-          rightSectionPointerEvents="none"
-          component="button"
-          type="button"
-          rightSection={<SelectDropIcon isActive={combobox.dropdownOpened} />}
-          onClick={() => combobox.toggleDropdown()}
-        >
-          {value.length ? value.join(', ') : <Text c='gray.5' size="sm">{placeholder}</Text>}
-        </InputBase>
-      </Combobox.Target>
-      <Combobox.Dropdown>{options}</Combobox.Dropdown>
-    </Combobox>
+        store={combobox}>
+        <Combobox.Target>
+          <InputBase
+            multiline
+            pointer
+            rightSectionPointerEvents="none"
+            component="button"
+            type="button"
+            rightSection={<SelectDropIcon isActive={combobox.dropdownOpened} />}
+            onClick={() => combobox.toggleDropdown()}
+          >
+            {value.length ? value.join(', ') : <Text c='gray.5' size="sm">{placeholder}</Text>}
+          </InputBase>
+        </Combobox.Target>
+        <Combobox.Dropdown>
+          <ScrollArea.Autosize mah={100} scrollbarSize={4} type="auto">{options}</ScrollArea.Autosize>
+        </Combobox.Dropdown>
+      </Combobox>
+    </Input.Wrapper>
   );
 };
