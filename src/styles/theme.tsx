@@ -40,7 +40,7 @@ export const theme = createTheme({
       classNames: inputStyles,
     }),
     Pill: Pill.extend({
-      classNames: pillStyles,
+      // classNames: pillStyles,
     })
   },
   headings: {

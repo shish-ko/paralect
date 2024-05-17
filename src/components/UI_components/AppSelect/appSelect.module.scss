@@ -1,3 +1,9 @@
-.pillsList {
-  // padding: 50px;
+.option {
+  &:hover {
+    background-color: var(--mantine-color-purple-1);
+  }
+  &[active="true"] {
+    background-color: var(--mantine-color-purple-5);
+    color: white;
+  }
 }
