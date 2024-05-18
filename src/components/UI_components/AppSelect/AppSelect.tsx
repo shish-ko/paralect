@@ -1,6 +1,6 @@
-import { Combobox, Group, Input, InputBase, InputProps, InputWrapperProps, MultiSelect, MultiSelectProps, ScrollArea, Text, ThemeIcon, useCombobox, useMantineTheme } from "@mantine/core";
-import { Dispatch, SetStateAction, useState } from "react";
-import DropIcon from '~assets/dropList.svg?react';
+import { Combobox, Input, InputBase, InputWrapperProps, ScrollArea, Text, ThemeIcon, useCombobox, useMantineTheme } from "@mantine/core";
+import { Dispatch, SetStateAction } from "react";
+import DropIcon from '~assets/dropList2.svg?react';
 import styles from './appSelect.module.scss';
 
 interface ISelectIconProps {

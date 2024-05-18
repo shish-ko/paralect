@@ -1,7 +1,7 @@
-import { Button, Container, Input, Pill, createTheme, rem } from "@mantine/core"; 
+import { Button, Container, DEFAULT_THEME, Input, InputWrapper, NumberInput, createTheme, rem } from "@mantine/core"; 
 import btnStyles from './buttons.module.scss';
 import inputStyles from './input.module.scss';
-import pillStyles from './pill.module.scss';
+import numInputStyles from './num_input.module.scss';
 
 export const theme = createTheme({
   fontFamily: 'Inter',
@@ -19,7 +19,7 @@ export const theme = createTheme({
       }),
     }),
     Button: Button.extend({
-      classNames: (_, props)=>(!props.variant ? _.components.button.classNames : btnStyles),
+      classNames: (_, props)=>(props.variant ? DEFAULT_THEME.components : btnStyles),
       vars: (_, { size }) => ({
         root: {
           '--button-padding-x': rem(20),
@@ -32,15 +32,18 @@ export const theme = createTheme({
     Input: Input.extend({
       vars: (_, { size }) => ({
         wrapper: {
-          '--input-height': size==='lg' ? rem(48) : rem(size),
+          '--input-height': size==='lg' ? rem(48) : size ? rem(size) : rem(42),
           '--input-radius': rem(8),
           '--input-fz': rem(14),
         },
       }),
       classNames: inputStyles,
     }),
-    Pill: Pill.extend({
-      // classNames: pillStyles,
+    InputWrapper: InputWrapper.extend ({
+      classNames: inputStyles
+    }),
+    NumberInput: NumberInput.extend({
+      classNames: numInputStyles,
     })
   },
   headings: {

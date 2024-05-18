@@ -15,7 +15,7 @@ export const FilmCard_S: React.FC<IFilmCardProps> = ({ isBig }) => {
         <Stack justify="space-between" className={styles.titleContainer}>
           <Group justify="space-between" align='flex-start' gap={8} wrap="nowrap">
             <div className={styles.filmInfo}>
-              <Title order={3} c='purple.5'>qweq qweqwweqweqwe  eq qweqwweqweqw</Title>
+              <Title order={3} c='purple.5'>M - Eine Stadt sucht einen Mörder</Title>
               <Text c='gray.6' my={8}>1999</Text>
               <Group gap={0}>
                 <Star isOrange={true} isNotActive={true} />

@@ -22,25 +22,29 @@ export const SearchBar: React.FC = () => {
           size="lg"
         />
       </Group>
-      <Stack>
-        <Grid align="end">
-          <Grid.Col span={'auto'}>
-            <AppSelect placeholder="Select genres" data={['React', 'Angular', 'Svelte', 'Vue']} value={genres} setValue={setGenres} label='Genres' />
+      <Stack mb={24} gap={24}>
+        <Grid align="end" py={0}>
+          <Grid.Col span={{ base: 12, md: 6, lg: 'auto' }}>
+            <AppSelect size="lg" placeholder="Select genre" data={['React', 'Angular', 'Svelte', 'Vue']} value={genres} setValue={setGenres} label='Genres' />
           </Grid.Col>
-          <Grid.Col span={'auto'}>
+          <Grid.Col span={{ base: 12, md: 6, lg: 'auto' }}>
             <AppSelect placeholder="Select release year" data={['React', 'Angular', 'Svelte', 'Vue']} value={releaseYears} setValue={setReleaseYears} label='Release year' />            
           </Grid.Col>
-          <Grid.Col span={'auto'}>
-            <Group justify="space-between" align="flex-end" wrap="nowrap">
-            <NumberInput placeholder="From" label='Ratings' min={0} max={10} w={138} decimalScale={2} step={0.1}/>
-            <NumberInput placeholder="To" min={0} max={10} w={138} decimalScale={2} step={0.1}/>
+          <Grid.Col span={{ base: 12, md: 'content', lg: 'auto' }}>
+            <Group gap={8} align="flex-end" wrap="nowrap">
+            <NumberInput placeholder="From" label='Ratings' min={0} max={10} w={138} decimalScale={2} step={0.1} rightSectionWidth={36}/>
+            <NumberInput placeholder="To" min={0} max={10} w={138} decimalScale={2} step={0.1} rightSectionWidth={36}/>
 
             </Group>
           </Grid.Col>
           <Grid.Col span={'content'}>
-            <Button variant="white">Reset filters</Button>
+            <Button variant="transparent" disabled px={0}>Reset filters</Button>
           </Grid.Col>
         </Grid>
+        <Group justify="right">
+          <AppSelect placeholder="Sort by" data={['React', 'Angular', 'Svelte', 'Vue']} value={releaseYears} setValue={setReleaseYears} label='Sort by' w={284}/>            
+          
+        </Group>
       </Stack>
 
     </>

@@ -1,8 +1,14 @@
-.input{
+.input {
   border-color: var(--mantine-color-gray-3);
-  
+
   &:hover,
   &:focus {
     border-color: var(--mantine-color-purple-5);
   }
+}
+
+.label {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 6px;
 }

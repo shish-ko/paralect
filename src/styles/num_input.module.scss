@@ -1,0 +1,13 @@
+.control {
+  &:first-of-type {
+    padding-top: 8px;
+  }
+  &:last-of-type {
+    padding-bottom: 8px;
+  }
+  border-inline-start: none;
+}
+
+.controls {
+  max-width: calc(var(--ni-chevron-size) * 3);
+}
