@@ -2,12 +2,16 @@ import { Group, Image, Paper, Stack, Text, Title } from "@mantine/core";
 import styles from './styles.module.scss';
 import poster from '~assets/poster.png';
 import { Star } from "~comps/UI_components/Star/Star";
+import { RateModal } from "~comps/RateModal/RateModal";
+import { useState } from "react";
 
 interface IFilmCardProps {
   isBig?: boolean;
 }
 
 export const FilmCard_S: React.FC<IFilmCardProps> = ({ isBig }) => {
+  const [isRateActive, setIsRateActive] = useState(false);
+
   return (
     <Paper className={styles.card} radius={12}>
       <Group align="stretch" wrap="nowrap">
@@ -23,7 +27,7 @@ export const FilmCard_S: React.FC<IFilmCardProps> = ({ isBig }) => {
                 <Text span c='gray.6' ml={8}>(2.9M)</Text>
               </Group>
             </div>
-            <Star />
+            <Star onClick={()=>setIsRateActive(true)}/>
           </Group>
           {isBig ?
             <div className={styles.fullInfoContainer}>
@@ -40,6 +44,7 @@ export const FilmCard_S: React.FC<IFilmCardProps> = ({ isBig }) => {
           }
         </Stack>
       </Group>
+      <RateModal isOpen={isRateActive} filmTitle="Coco" closeHandler={()=>setIsRateActive(false)} />
     </Paper>
   );
 };

@@ -4,11 +4,15 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './router.tsx';
 import { MantineProvider } from '@mantine/core';
 import { theme } from 'styles/theme.tsx';
+import { Provider } from 'react-redux';
+import { store } from 'store/store.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MantineProvider theme={theme} >
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </MantineProvider>
   </React.StrictMode>,
 );
