@@ -9,7 +9,7 @@ export const FilmList: React.FC<IFilmListProps> =({filmList})=> {
 
   return (
     <div className={styles.filmContainer}>
-      {filmList.map((filmData)=> <FilmCard_S {...filmData}/>)}
+      {filmList.map((filmData)=> <FilmCard_S {...filmData} isBig={false} key={filmData.id}/>)}
     </div>
   );
 };

@@ -3,8 +3,11 @@ import SearchIcon from '~assets/search.svg?react';
 import styles from './styles.module.scss';
 import { AppSelect } from "~comps/UI_components/AppSelect/AppSelect";
 import { useState } from "react";
+import { useRouteLoaderData } from "react-router-dom";
+import { IGenre } from "interfaces";
 
 export const SearchBar: React.FC = () => {
+  const genresList = useRouteLoaderData('root') as IGenre[];
   const [genres, setGenres] = useState<string[]>([]);
   const [releaseYears, setReleaseYears] = useState<string[]>([]);
 
@@ -25,7 +28,7 @@ export const SearchBar: React.FC = () => {
       <Stack mb={24} gap={24}>
         <Grid align="end" py={0}>
           <Grid.Col span={{ base: 12, md: 6, lg: 'auto' }}>
-            <AppSelect size="lg" placeholder="Select genre" data={['React', 'Angular', 'Svelte', 'Vue']} value={genres} setValue={setGenres} label='Genres' />
+            <AppSelect size="lg" placeholder="Select genre" data={genresList.map((g)=>g.name)} value={genres} setValue={setGenres} label='Genres' />
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6, lg: 'auto' }}>
             <AppSelect placeholder="Select release year" data={['React', 'Angular', 'Svelte', 'Vue']} value={releaseYears} setValue={setReleaseYears} label='Release year' />            

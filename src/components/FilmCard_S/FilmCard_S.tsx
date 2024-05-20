@@ -5,6 +5,7 @@ import { Star } from "~comps/UI_components/Star/Star";
 import { RateModal } from "~comps/RateModal/RateModal";
 import { useState } from "react";
 import { IFilmData_L, IFilmData_S } from "interfaces";
+import { MEDIA_URL } from "constants";
 
 type IFilmCardProps = (IFilmData_S & { isBig: false}) | (IFilmData_L & { isBig: true} )
 
@@ -14,15 +15,15 @@ export const FilmCard_S: React.FC<IFilmCardProps> = (props) => {
   return (
     <Paper className={styles.card} radius={12}>
       <Group align="stretch" wrap="nowrap">
-        <Image src={poster} h={props.isBig ? 352 : 170} w={props.isBig ? 250 : 119} mr={16} />
+        <Image src={MEDIA_URL + props.poster_path} h={props.isBig ? 352 : 170} w={props.isBig ? 250 : 119} mr={16} />
         <Stack justify="space-between" className={styles.titleContainer}>
           <Group justify="space-between" align='flex-start' gap={8} wrap="nowrap">
             <div className={styles.filmInfo}>
               <Title order={3} c='purple.5'>{props.original_title}</Title>
-              <Text c='gray.6' my={8}>{props.release_date}</Text>
+              <Text c='gray.6' my={8}>{new Date(props.release_date).getFullYear()}</Text>
               <Group gap={0}>
                 <Star isOrange={true} isNotActive={true} />
-                <Text span fw={600} ml={4}>{props.original_title}</Text>
+                <Text span fw={600} ml={4}>{props.vote_average}</Text>
                 <Text span c='gray.6' ml={8}>({props.vote_count})</Text>
               </Group>
             </div>

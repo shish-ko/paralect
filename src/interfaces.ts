@@ -23,6 +23,11 @@ interface IFilmData_L extends IFilmData_S {
   videos: string[]
 }
 
+interface IGenre {
+  id: number,
+  name: string,
+}
+
 
 export { appPaths };
-export type { IFilmData_S, IFilmData_L };
+export type { IFilmData_S, IFilmData_L, IGenre };

@@ -17,7 +17,6 @@ export const RateModal: React.FC<IRateModal> = ({isOpen, filmTitle, filmId, clos
   const [ratings, saveRatings] = useLocalStorage<IUserRates[]>({key: 'userRatings', defaultValue: []});
   const personalRate = ratings.find((r)=>r.filmId === filmId);
   const [filmRate, setFilmRate] = useState(personalRate?.rate);
-  console.log(ratings);
 
   const modalCloseHandler= () => {
     setFilmRate(personalRate?.rate);
