@@ -1,21 +1,24 @@
 import { Group, Image, Paper, Stack, Text, Title } from "@mantine/core";
 import styles from './styles.module.scss';
-import poster from '~assets/poster.png';
+import noImage_S from '~assets/no_image_S.png';
+import noImage_L from '~assets/no_image_L.png';
 import { Star } from "~comps/UI_components/Star/Star";
 import { RateModal } from "~comps/RateModal/RateModal";
 import { useState } from "react";
-import { IFilmData_L, IFilmData_S } from "interfaces";
+import { IFilmData_L, IFilmData_S, IGenre } from "interfaces";
 import { MEDIA_URL } from "constants";
+import { useRouteLoaderData } from "react-router-dom";
 
 type IFilmCardProps = (IFilmData_S & { isBig: false}) | (IFilmData_L & { isBig: true} )
 
 export const FilmCard_S: React.FC<IFilmCardProps> = (props) => {
+  const genresList = useRouteLoaderData('root') as IGenre[];
   const [isRateActive, setIsRateActive] = useState(false);
 
   return (
     <Paper className={styles.card} radius={12}>
       <Group align="stretch" wrap="nowrap">
-        <Image src={MEDIA_URL + props.poster_path} h={props.isBig ? 352 : 170} w={props.isBig ? 250 : 119} mr={16} />
+        <Image src={MEDIA_URL + props.poster_path} h={props.isBig ? 352 : 170} w={props.isBig ? 250 : 119} mr={16} fallbackSrc={props.isBig ? noImage_L : noImage_S}/>
         <Stack justify="space-between" className={styles.titleContainer}>
           <Group justify="space-between" align='flex-start' gap={8} wrap="nowrap">
             <div className={styles.filmInfo}>
@@ -23,7 +26,7 @@ export const FilmCard_S: React.FC<IFilmCardProps> = (props) => {
               <Text c='gray.6' my={8}>{new Date(props.release_date).getFullYear()}</Text>
               <Group gap={0}>
                 <Star isOrange={true} isNotActive={true} />
-                <Text span fw={600} ml={4}>{props.vote_average}</Text>
+                <Text span fw={600} ml={4}>{props.vote_average.toFixed(2)}</Text>
                 <Text span c='gray.6' ml={8}>({props.vote_count})</Text>
               </Group>
             </div>
@@ -40,6 +43,7 @@ export const FilmCard_S: React.FC<IFilmCardProps> = (props) => {
             :
             <div>
               <Text span c='gray.6'>Genres: </Text>
+              <Text span>{props.genre_ids.map(id => genresList.find(genre=> genre.id === id)?.name).join(', ')}</Text>
             </div>
           }
         </Stack>

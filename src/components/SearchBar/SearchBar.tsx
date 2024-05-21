@@ -28,10 +28,10 @@ export const SearchBar: React.FC = () => {
       <Stack mb={24} gap={24}>
         <Grid align="end" py={0}>
           <Grid.Col span={{ base: 12, md: 6, lg: 'auto' }}>
-            <AppSelect size="lg" placeholder="Select genre" data={genresList.map((g)=>g.name)} value={genres} setValue={setGenres} label='Genres' />
+            <AppSelect size="lg" placeholder="Select genre" data={genresList.map((g)=>g.name)} value={genres} setValue={setGenres} label='Genres' multiSelect/>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6, lg: 'auto' }}>
-            <AppSelect placeholder="Select release year" data={['React', 'Angular', 'Svelte', 'Vue']} value={releaseYears} setValue={setReleaseYears} label='Release year' />            
+            <AppSelect placeholder="Select release year" data={Array(70).fill(undefined).map((_, i) => (new Date().getFullYear()-i).toString())} value={releaseYears} setValue={setReleaseYears} label='Release year' />            
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 'content', lg: 'auto' }}>
             <Group gap={8} align="flex-end" wrap="nowrap">
@@ -45,7 +45,7 @@ export const SearchBar: React.FC = () => {
           </Grid.Col>
         </Grid>
         <Group justify="right">
-          <AppSelect placeholder="Sort by" data={['React', 'Angular', 'Svelte', 'Vue']} value={releaseYears} setValue={setReleaseYears} label='Sort by' w={284}/>            
+          <AppSelect placeholder="Sort by" data={['React', 'Angular', 'Svelte', 'Vue']} value={releaseYears} setValue={setReleaseYears} label='Sort by' w={284}/>          
           
         </Group>
       </Stack>
