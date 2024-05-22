@@ -2,37 +2,23 @@ import { useEffect, useState } from 'react';
 import style from './styles.module.scss';
 import { FilmList } from "~comps/FilmList/FilmList";
 import { SearchBar } from "~comps/SearchBar/SearchBar";
-import { IFilmData_S, IGenre } from 'interfaces';
+import { IFilmData_S, IFilmsSearchRes, IGenre } from 'interfaces';
 import { Center, Group, Loader, Pagination } from '@mantine/core';
-import { API_URL } from 'constants';
 
 export const IndexPage = () => {
-  const [filmsToDisplay, setFilmsToDisplay] = useState<IFilmData_S[]>();
-  useEffect(() => {
-    async function getAllFilms() {
-      const res = await fetch(API_URL, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_API_KEY}`,
-          accept: 'application/json',
-        }
-      });
-      const data = await res.json();
-      console.log(data);
-      setFilmsToDisplay(data.results);
-    }
-    getAllFilms();
-  }, []);
+  const [filmsToDisplay, setFilmsToDisplay] = useState<IFilmsSearchRes>();
+  const [page, setPage] = useState(1);
 
   return (
     <div className={style.main}>
-      <SearchBar />
+      <SearchBar searchHandler={setFilmsToDisplay} page={page} pageSetter={setPage}/>
       {!filmsToDisplay
         ? <Center><Loader /></Center>
-        : <FilmList filmList={filmsToDisplay}
+        : <FilmList filmList={filmsToDisplay.results}
         />}
         <Group justify='flex-end' mt={24}>
-          <Pagination siblings={1} total={3} defaultValue={1} boundaries={0} classNames={style}/>
+          {(filmsToDisplay && Number(filmsToDisplay?.total_pages)-1) && <Pagination siblings={1} total={filmsToDisplay.total_pages} value={filmsToDisplay.page} boundaries={0} classNames={style} onChange={setPage}/>}
+          
         </Group>
 
     </div>

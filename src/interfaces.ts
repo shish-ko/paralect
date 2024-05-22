@@ -19,8 +19,11 @@ interface IFilmData_L extends IFilmData_S {
   revenue: number,
   genres: { name: string }[],
   overview: string,
-  production_companies: string[],
-  videos: string[]
+  production_companies: {
+    "logo_path": string,
+    "name": string,
+  }[],
+  videos: {results: {key: string}[]}
 }
 
 interface IGenre {
@@ -28,6 +31,25 @@ interface IGenre {
   name: string,
 }
 
+interface IUserRates {
+  filmId: number;
+  rate: number
+}
+
+interface IFilters {
+  primary_release_year: string,
+  'vote_average.lte': string | number | undefined,
+  'vote_average.gte': string | number | undefined,
+  sort_by: string,
+  page: number,
+  with_genres: number[],
+}
+
+interface IFilmsSearchRes {
+  page: number,
+  results: IFilmData_S[],
+  total_pages: number,
+}
 
 export { appPaths };
-export type { IFilmData_S, IFilmData_L, IGenre };
+export type { IFilmData_S, IFilmData_L, IGenre, IUserRates, IFilters, IFilmsSearchRes };

@@ -1,7 +1,8 @@
 import { Button, Divider, Modal, Rating, Stack, Text } from "@mantine/core";
 import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 import { useAppSelector } from "helpers/customHooks";
-import { useState } from "react";
+import { IUserRates } from "interfaces";
+import { useEffect, useState } from "react";
 
 interface IRateModal {
   isOpen: boolean;
@@ -9,14 +10,15 @@ interface IRateModal {
   filmId: number;
   closeHandler: ()=>void;
 }
-interface IUserRates {
-  filmId: number;
-  rate: number
-}
+
 export const RateModal: React.FC<IRateModal> = ({isOpen, filmTitle, filmId, closeHandler}) => {
   const [ratings, saveRatings] = useLocalStorage<IUserRates[]>({key: 'userRatings', defaultValue: []});
+  const [filmRate, setFilmRate] = useState<number>();
   const personalRate = ratings.find((r)=>r.filmId === filmId);
-  const [filmRate, setFilmRate] = useState(personalRate?.rate);
+
+  useEffect(()=>{
+    setFilmRate(personalRate?.rate);
+  }, [personalRate?.rate]);
 
   const modalCloseHandler= () => {
     setFilmRate(personalRate?.rate);
@@ -32,6 +34,12 @@ export const RateModal: React.FC<IRateModal> = ({isOpen, filmTitle, filmId, clos
         saveRatings([...ratings, {filmId, rate: filmRate}]);
       }
     }
+    closeHandler();
+  };
+
+  const removeHandler =() => {
+    saveRatings(ratings.filter((rate=>rate.filmId !== filmId)));
+    closeHandler();
   };
 
   return (
@@ -43,6 +51,7 @@ export const RateModal: React.FC<IRateModal> = ({isOpen, filmTitle, filmId, clos
           <Rating value={filmRate} count={10} size={28} styles={{ root: { width: 'inherit', justifyContent: 'space-between' } }} onChange={setFilmRate} />
           <div>
             <Button mr={10} onClick={saveHandler}>Save</Button>
+            {personalRate && <Button onClick={removeHandler}>Remove rate</Button>}
           </div>
         </Stack>
       </Modal>

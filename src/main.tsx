@@ -6,6 +6,7 @@ import { MantineProvider } from '@mantine/core';
 import { theme } from 'styles/theme.tsx';
 import { Provider } from 'react-redux';
 import { store } from 'store/store.ts';
+import './styles/reset.scss';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

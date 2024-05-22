@@ -10,7 +10,6 @@ export const Default_UI: React.FC = () => {
     <div className={styles.app}>
       <Navbar />
       <Outlet />
-      <RateModal />
     </div>
   );
 };

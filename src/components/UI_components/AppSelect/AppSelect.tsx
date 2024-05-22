@@ -29,7 +29,6 @@ type IAppSelectProps = {
 } & InputWrapperProps
 
 export const AppSelect: React.FC<IAppSelectProps> = ({ value, data, setValue, placeholder, multiSelect, ...inputProps }) => {
-
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
     onDropdownOpen: () => combobox.updateSelectedOptionIndex('active'),
@@ -43,6 +42,7 @@ export const AppSelect: React.FC<IAppSelectProps> = ({ value, data, setValue, pl
 
   const handleValueSelect = (val: string) =>{
     if(multiSelect) {
+      // inputProps
       setValue((current) =>
         current.includes(val) ? current.filter((v) => v !== val) : [...current, val]
       );
