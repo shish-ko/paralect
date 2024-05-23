@@ -1,5 +1,5 @@
-import { DISCOVER_URL } from "constants";
-import { IFilmsSearchRes, IFilters, IGenre, appPaths } from "interfaces";
+import { server } from "axiosConfig";
+import { IFilmsSearchRes, IFilters, appPaths } from "interfaces";
 import { Dispatch, SetStateAction } from "react";
 
 function isListKey(value: string, list: typeof appPaths): value is keyof typeof appPaths {
@@ -14,30 +14,19 @@ const getPathname = (path: string): appPaths | null => {
 };
 
 const apiFetcher = async (searchParams: IFilters, resSetter: Dispatch<SetStateAction<IFilmsSearchRes | undefined>>) => {
-  const url = new URL(DISCOVER_URL);
-
-  for (const param in searchParams) {
-    const val = searchParams[param as keyof IFilters];
-    if (val) {
-      if (Array.isArray(val)) {
-        val.forEach(value => url.searchParams.append(param, value.toString()));
-      } else {
-        url.searchParams.append(param, val.toString());
-      }
-    }
-  }
-  const res = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${import.meta.env.VITE_API_KEY}`,
-      accept: 'application/json',
-    }
-  });
-  const data = await res.json() as IFilmsSearchRes;
-  resSetter(data)
-  console.log(data);
-  console.log(url.toString());
-  // url.searchParams.append()
+  const res = await server.get('discover/movie', {params: {...searchParams, language: 'en-US'}});
+  console.log(res);
+  resSetter(res.data);
 };
 
-export { getPathname, apiFetcher };
+const getNumberWithCommas = (x: number) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+const getTimeString = (minutes: number) => {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60; 
+  return  h ? `${h}h ${m}m` : `${m}m`;
+};
+
+export { getPathname, apiFetcher, getNumberWithCommas, getTimeString };

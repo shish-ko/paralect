@@ -31,9 +31,8 @@ interface IGenre {
   name: string,
 }
 
-interface IUserRates {
-  filmId: number;
-  rate: number
+interface IUserRates extends IFilmData_S{
+  userRate: number;
 }
 
 interface IFilters {

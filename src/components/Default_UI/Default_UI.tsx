@@ -3,7 +3,8 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import '@mantine/core/styles.css';
 import { Navbar } from "~comps/Navbar/Navbar";
-import { RateModal } from '~comps/RateModal/RateModal';
+import { IGenre } from 'interfaces';
+import { server } from 'axiosConfig';
 
 export const Default_UI: React.FC = () => {
   return (
@@ -12,4 +13,9 @@ export const Default_UI: React.FC = () => {
       <Outlet />
     </div>
   );
+};
+
+export const loader = async () => {
+  const {data: {genres}} = await server.get<{genres: IGenre[]}>('genre/movie/list', {params: {language: 'en'}});
+  return genres;
 };

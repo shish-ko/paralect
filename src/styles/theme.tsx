@@ -1,7 +1,8 @@
-import { Button, Container, DEFAULT_THEME, Input, InputWrapper, NumberInput, createTheme, rem } from "@mantine/core"; 
+import { Button, Container, DEFAULT_THEME, Input, InputWrapper, NumberInput, Pagination, createTheme, rem } from "@mantine/core"; 
 import btnStyles from './buttons.module.scss';
 import inputStyles from './input.module.scss';
 import numInputStyles from './num_input.module.scss';
+import paginationStyles from './pagination.module.scss';
 
 export const theme = createTheme({
   fontFamily: 'Inter',
@@ -44,6 +45,9 @@ export const theme = createTheme({
     }),
     NumberInput: NumberInput.extend({
       classNames: numInputStyles,
+    }),
+    Pagination: Pagination.extend({
+      classNames: paginationStyles,
     })
   },
   headings: {
