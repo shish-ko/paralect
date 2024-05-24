@@ -21,7 +21,7 @@ export const FilmCard_S: React.FC<IFilmCardProps> = (props) => {
 
   return (
     <>
-      <Paper className={styles.card} radius={12} component={Link} to={`movie/${props.id}`}>
+      <Paper className={styles.card} radius={12} component={Link} to={`/movie/${props.id}`}>
         <Group align="stretch" wrap="nowrap">
           <Image src={MEDIA_URL + props.poster_path} h={props.isBig ? 352 : 170} w={props.isBig ? 250 : 119} mr={16} fallbackSrc={props.isBig ? noImage_L : noImage_S} />
           <Stack justify="space-between" className={styles.titleContainer}>

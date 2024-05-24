@@ -17,5 +17,10 @@ const SORT_BY = [
   "vote_average.desc",
   "vote_count.asc",
   "vote_count.desc"];
+
+const subRoutes = {
+  'Rated movies': ['/rated'],
+  'Movies': ['/', '/movie']
+};
   
-export { API_URL, MEDIA_URL, SORT_BY };
+export { API_URL, MEDIA_URL, SORT_BY, subRoutes };

@@ -1,27 +1,24 @@
-import { combineReducers, configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { IGenre } from "interfaces";
 
 
-interface IRatingState {
-  isOpen: boolean;
-}
-const initialState: IRatingState = {
-  isOpen: false
-};
 
-const ratingSlice = createSlice({
-  name: 'rating',
+const initialState: IGenre[] = [];
+
+const genreSlice = createSlice({
+  name: 'genres',
   initialState,
   reducers: {
-    closeModal: (state) => {state.isOpen=false;},
-    openModal: (state) => {state.isOpen=true;},
+    addGenres: (state, {payload}) => {state = payload;},
   }
 });
 
-const combinedReducers = combineReducers(ratingSlice.reducer);
 
 export const store = configureStore({
-  reducer: {rateModal: ratingSlice.reducer},
+  reducer: {genres: genreSlice.reducer},
 });
+
+export const {addGenres} = genreSlice.actions;
 
 export type IRootState = ReturnType<typeof store.getState>;
 export type IAppDispatch = typeof store.dispatch;

@@ -15,7 +15,8 @@ interface ISearchBarProps {
   pageSetter: Dispatch<SetStateAction<number>>;
 }
 export const SearchBar: React.FC<ISearchBarProps> = ({ searchHandler, page, pageSetter }) => {
-  const genresList = useRouteLoaderData('root') as IGenre[];
+  const {res: {data: {genres: genresList}}} = useRouteLoaderData('root') as {res:  {data: {genres: IGenre[]}}};
+  console.log(genresList);
   const [query, setQuery] = useState<string>();
   const [genres, setGenres] = useState<string[]>([]);
   const [releaseYear, setReleaseYear] = useState<string[]>([]);
