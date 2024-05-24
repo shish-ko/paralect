@@ -7,6 +7,7 @@ import { useRouteLoaderData } from "react-router-dom";
 import { IFilmsSearchRes, IGenre } from "interfaces";
 import { SORT_BY } from "constants";
 import { apiFetcher } from "utils";
+import { server } from "axiosConfig";
 
 interface ISearchBarProps {
   searchHandler: Dispatch<SetStateAction<IFilmsSearchRes | undefined>>;
@@ -30,7 +31,7 @@ export const SearchBar: React.FC<ISearchBarProps> = ({ searchHandler, page, page
     setMinRate(undefined);
     setSortBy([SORT_BY[1]]);
     setReleaseYear([]);
-    setQuery(undefined);
+    setQuery('');
   };
 
   async function getMovies() {
@@ -66,8 +67,9 @@ export const SearchBar: React.FC<ISearchBarProps> = ({ searchHandler, page, page
     pageFlag.current = true;
   }, [page]);
 
-  const querySearch = () => {
-    
+  const querySearch = async () => {
+    const {data} = await server.get<IFilmsSearchRes>('search/movie', {params: {query}});
+    searchHandler(data);
   };
 
   return (
