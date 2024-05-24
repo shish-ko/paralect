@@ -1,0 +1,11 @@
+.root {
+  z-index: 100;
+  &:not(:disabled):hover {
+    transform: scale(1.1);
+  }
+  &:disabled,
+  &[data-disabled] {
+    cursor: unset;
+    background-color: transparent;
+  }
+}

@@ -1,0 +1,21 @@
+.card {
+  display: flex;
+  padding: 24px;
+  gap: 8px;
+  width: 100%;
+}
+
+.titleContainer {
+  flex-grow: 1;
+  align-content: flex-start;
+}
+
+.filmInfo {
+  flex-shrink: 1;
+}
+.fullInfoContainer {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 12px;
+  row-gap: 8px;
+}

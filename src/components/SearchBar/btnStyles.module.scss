@@ -1,0 +1,18 @@
+.inner {
+  
+  color: var(--mantine-color-purple-5);
+  &:hover {
+    color: var(--mantine-color-purple-6);
+  }
+  &:active {
+    color: var(--mantine-color-purple-4);
+  }
+}
+.root{
+  
+  &:disabled {
+    .inner {
+      color: var(--mantine-color-gray-8);
+    }
+  }
+}
