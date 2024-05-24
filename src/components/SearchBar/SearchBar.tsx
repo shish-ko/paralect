@@ -3,11 +3,12 @@ import SearchIcon from '~assets/search.svg?react';
 import styles from './styles.module.scss';
 import { AppSelect } from "~comps/UI_components/AppSelect/AppSelect";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import { useRouteLoaderData } from "react-router-dom";
-import { IFilmsSearchRes, IGenre } from "interfaces";
+import { IFilmsSearchRes } from "interfaces";
 import { SORT_BY } from "constants";
 import { apiFetcher } from "utils";
 import { server } from "axiosConfig";
+import { useAppSelector } from "helpers/customHooks";
+import btnStyles from './btnStyles.module.scss';
 
 interface ISearchBarProps {
   searchHandler: Dispatch<SetStateAction<IFilmsSearchRes | undefined>>;
@@ -15,8 +16,7 @@ interface ISearchBarProps {
   pageSetter: Dispatch<SetStateAction<number>>;
 }
 export const SearchBar: React.FC<ISearchBarProps> = ({ searchHandler, page, pageSetter }) => {
-  const {res: {data: {genres: genresList}}} = useRouteLoaderData('root') as {res:  {data: {genres: IGenre[]}}};
-  console.log(genresList);
+  const genresList = useAppSelector((store) => store.genres);
   const [query, setQuery] = useState<string>();
   const [genres, setGenres] = useState<string[]>([]);
   const [releaseYear, setReleaseYear] = useState<string[]>([]);
@@ -24,18 +24,22 @@ export const SearchBar: React.FC<ISearchBarProps> = ({ searchHandler, page, page
   const [minRate, setMinRate] = useState<string | number>();
   const [maxRate, setMaxRate] = useState<string | number>();
   const genreIds = genres.map((name) => genresList.find((item) => item.name === name)!.id);
-  const pageFlag = useRef(false);
-  
-  const resetHandler = ()=> {
+  const pageFlag = useRef<'filter' | 'query'>('filter');
+  const isResetActive = [genres, releaseYear, minRate, maxRate].some(i => (i ? (typeof i === 'number' ? i : i.length) : i)) || sortBy[0] !== SORT_BY[1];
+
+  const resetHandler = () => {
+    pageFlag.current = 'filter';
     setGenres([]);
     setMaxRate(undefined);
     setMinRate(undefined);
     setSortBy([SORT_BY[1]]);
     setReleaseYear([]);
+    pageSetter(1);
     setQuery('');
   };
-
+  
   async function getMovies() {
+    pageFlag.current = 'filter';
     await apiFetcher(
       {
         primary_release_year: releaseYear[0],
@@ -45,16 +49,15 @@ export const SearchBar: React.FC<ISearchBarProps> = ({ searchHandler, page, page
         with_genres: genreIds,
         page: 1,
       }, searchHandler);
-    pageFlag.current = page === 1;
-    pageSetter(1);
-  }
-  
+      pageSetter(1);
+    }
+
   useEffect(() => {
     getMovies();
   }, [genres, releaseYear, sortBy, minRate, maxRate]);
 
   useEffect(() => {
-    if (pageFlag.current) {
+    if (pageFlag.current === 'filter') {
       apiFetcher(
         {
           primary_release_year: releaseYear[0],
@@ -64,13 +67,16 @@ export const SearchBar: React.FC<ISearchBarProps> = ({ searchHandler, page, page
           with_genres: genreIds,
           page,
         }, searchHandler);
+    } else {
+      querySearch(page);
     }
-    pageFlag.current = true;
   }, [page]);
-
-  const querySearch = async () => {
-    const {data} = await server.get<IFilmsSearchRes>('search/movie', {params: {query}});
+  
+  const querySearch = async (page = 1) => {
+    pageFlag.current = 'query';
+    const { data } = await server.get<IFilmsSearchRes>('search/movie', { params: { query, page } });
     searchHandler(data);
+
   };
 
   return (
@@ -79,14 +85,14 @@ export const SearchBar: React.FC<ISearchBarProps> = ({ searchHandler, page, page
         <Title order={2}>Movies</Title>
         <TextInput
           classNames={styles}
-          rightSection={<Button size="xs" onClick={querySearch}>Search</Button>}
+          rightSection={<Button size="xs" onClick={()=>{querySearch();pageSetter(1);}}>Search</Button>}
           leftSection={<SearchIcon />}
           placeholder="Search movie title"
           rightSectionWidth={109}
           leftSectionWidth={40}
           size="lg"
           value={query}
-          onChange={(e)=>setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
         />
       </Group>
       <Stack mb={24} gap={24}>
@@ -105,7 +111,7 @@ export const SearchBar: React.FC<ISearchBarProps> = ({ searchHandler, page, page
             </Group>
           </Grid.Col>
           <Grid.Col span={'content'}>
-            <Button variant="transparent" px={0} onClick={resetHandler}>Reset filters</Button>
+            <Button variant="transparent" px={0} onClick={resetHandler} disabled={!isResetActive} classNames={btnStyles}>Reset filters</Button>
           </Grid.Col>
         </Grid>
         <Group justify="right">

@@ -9,7 +9,7 @@ const genreSlice = createSlice({
   name: 'genres',
   initialState,
   reducers: {
-    addGenres: (state, {payload}) => {state = payload;},
+    addGenres: (state, {payload}) => {state.length=0; state.push(...payload);},
   }
 });
 

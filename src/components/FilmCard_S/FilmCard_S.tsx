@@ -5,16 +5,17 @@ import noImage_L from '~assets/no_image_L.png';
 import { StarRate } from "~comps/UI_components/Star/StarRate";
 import { RateModal } from "~comps/RateModal/RateModal";
 import { useState } from "react";
-import { IFilmData_L, IFilmData_S, IGenre, IUserRates } from "interfaces";
+import { IFilmData_L, IFilmData_S, IUserRates } from "interfaces";
 import { MEDIA_URL } from "constants";
-import { Link, useRouteLoaderData } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useLocalStorage } from "@mantine/hooks";
 import { getNumberWithCommas, getTimeString } from "utils";
+import { useAppSelector } from "helpers/customHooks";
 
 type IFilmCardProps = (IFilmData_S & { isBig: false }) | (IFilmData_L & { isBig: true })
 
 export const FilmCard_S: React.FC<IFilmCardProps> = (props) => {
-  const genresList = useRouteLoaderData('root') as IGenre[];
+  const genresList = useAppSelector((store) =>store.genres);
   const [isRateActive, setIsRateActive] = useState(false);
   const [ratings] = useLocalStorage<IUserRates[]>({ key: 'userRatings', defaultValue: [] });
   const personalRate = ratings.find((r) => r.id === props.id)?.userRate;

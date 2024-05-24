@@ -8,7 +8,7 @@ import { Default_UI } from '~comps/Default_UI/Default_UI';
 const routes = createRoutesFromElements(
   <Route path='/' element={<Default_UI/>}>
     <Route element={<IndexPage/>} index={true} />
-    <Route path={'movie/:id'} element={<Movie/>} loader={movieLoader}/>
+    <Route path={'movie/:id'} element={<Movie/>} loader={movieLoader} errorElement={<Page_404 />}/>
     <Route path={'rated'} element={<RatedPage />} />
     <Route path='*' element={<Page_404 />} />
   </Route>
