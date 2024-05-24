@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => {
   const location = useLocation();
   return (
     <nav className={styles.navBar}>
-      <Title order={1} className={styles.logo}>
+      <Title order={1} className={styles.logo} style={{zIndex:3, position: 'relative'}}>
         <img src={AppLogo} />
         <span>ArrowFlicks</span>
       </Title>
